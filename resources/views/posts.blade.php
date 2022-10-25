@@ -1,16 +1,57 @@
 @extends('layouts.main')
 @section('container')
-    <h1 class="mb-5">Halaman Blog Posts</h1>    
+    <h1 class="mb-5">{{ $title }}</h1>    
 
-    @foreach ($posts as $post)
-        <article class="mb-5">
-            <h2>
-                <a href="/posts/{{ $post->slug }}">{{ $post->title }}</a>
-            </h2>
-            <h5>By: {{ $post->author }}</h5>
-            <p>{{ $post->excerpt }}</p>
-        </article>
-    @endforeach
+@if ($posts->count())
+    <div class="card mb-3">
+        <img src="https://source.unsplash.com/1200x400?{{ $posts[0]->kategori->name }}" class="card-img-top" alt="kategori">
+        <div class="card-body text-center">
+            <a href="/posts/{{ $posts[0]->slug }}" class="text-decoration-none text-dark">
+                <h3 class="card-title">{{ $posts[0]->title }}</h3>
+            </a>
+            <p>
+                <small class="text-muted">
+                By. <a href="/authors/{{ $posts[0]->author->username }}"  class="text-decoration-none">{{ $posts[0]->author->name }}</a> in <a href="/kategoris/{{ $posts[0]->kategori->slug }}" class="text-decoration-none">{{ $posts[0]->kategori->name }}</a> {{ $posts[0]->created_at->diffForHumans() }}
+                </small>
+            </p>
+            <p class="card-text">{{ $posts[0]->excerpt }}</p>
+            
+            <a href="/posts/{{ $posts[0]->slug }}" class="text-decoration-none btn btn-primary">Read More...</a>
+
+        </div>
+    </div>
+
+@else
+    <p class="text-center fs-4">No post found....</p>
+@endif
+
+
+    <div class="container">
+        <div class="row">
+            @foreach ($posts->skip(1) as $post)
+                <div class="col-md-4 mb-3">
+
+                    <div class="card">
+                        <div class="position-absolute bg-dark px-3 py-2 text-white"> <a href="/kategoris/{{ $post->kategori->slug }}" class="text-white text-decoration-none">{{ $post->kategori->name }}</a></div>
+                        <img src="https://source.unsplash.com/500x400?{{ $post->kategori->name }}" class="card-img-top" alt="kategori">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ $post->title }}</h5>
+                            <p>
+                                <small class="text-muted">
+                                By. <a href="/authors/{{ $post->author->username }}" class="text-decoration-none">{{ $post->author->name }}</a> {{ $post->created_at->diffForHumans() }}
+                                </small>
+                            </p>
+
+                            <p class="card-text">{{ $post->excerpt }}</p>
+                            <a href="/posts/{{ $post->slug }}" class="btn btn-primary">Read More...</a>
+                        </div>
+                    </div>
+
+                </div>
+            @endforeach
+        </div>
+    </div>
+
 
 @endsection
 

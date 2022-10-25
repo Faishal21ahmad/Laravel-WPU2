@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\PostController;
 use App\Models\Post;
+use App\Models\User;
 use Illuminate\Support\Facades\Route;
 use App\Models\Kategori;
 /*
@@ -17,13 +18,16 @@ use App\Models\Kategori;
 
 Route::get('/', function () {
     return view('home', [
-        "title" => "Home"
+        "title" => "Home",
+        'active' => 'Home',
     ]);
 });
 
 Route::get('/about', function () {
     return view('about', [
+
         "title" => "About",
+        'active' => 'About',
         "name" => "faishalbahy",
         "email" => "faisal2017bahi@gmail.com",
         "image" => "ku1.jpg"
@@ -36,14 +40,22 @@ Route::get('posts/{post:slug}', [PostController::class, 'show']);
 Route::get('/kategoris', function () {
     return view('kategoris', [
         'title' => 'Post kategoris',
+        'active' => 'kategoris',
         'kategoris' => Kategori::all()
     ]);
 });
 
 Route::get('/kategoris/{kategori:slug}', function (Kategori $kategori) {
-    return view('kategori', [
-        'title' => $kategori->name,
-        'posts' => $kategori->posts,
-        'kategori' => $kategori->name
-    ]);
+    return view('posts', [
+        'title' => "Post By Kategori : $kategori->name",
+        'active' => 'kategoris',
+        'posts' => $kategori->posts->load('kategori', 'author')
+    ]);                             /// Lazy Eager Loading /////
+});
+
+Route::get('/authors/{author:username}', function (User $author) {
+    return view('posts', [
+        'title' => "Post By Author : $author->name",
+        'posts' => $author->posts->load('kategori', 'author')
+    ]);                           /// Lazy Eager Loading /////
 });
