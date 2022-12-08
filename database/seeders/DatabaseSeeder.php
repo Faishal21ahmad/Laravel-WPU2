@@ -24,6 +24,12 @@ class DatabaseSeeder extends Seeder
         ]);
 
         Kategori::create([
+            'name' => 'Web Design',
+            'slug' => 'web_design'
+        ]);
+
+
+        Kategori::create([
             'name' => 'Personal',
             'slug' => 'personal'
         ]);

@@ -5,16 +5,16 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <h1 class="mb-5">{{ $post->title }}</h1>
-                    <p>By. <a href="/authors/{{ $post->author->username }}" class="text-decoration-none" >{{ $post->author->name }}</a> in <a href="/kategoris/{{ $post->kategori->slug }}" class="text-decoration-none">{{ $post->kategori->name }}</a></p>
+                    <p>By. <a href="/posts?author={{ $post->author->username }}" class="text-decoration-none" >{{ $post->author->name }}</a> in <a href="/posts?kategori={{ $post->kategori->slug }}" class="text-decoration-none">{{ $post->kategori->name }}</a></p>
 
                     <img src="https://source.unsplash.com/1200x400?{{ $post->kategori->name }}" class="img-fluid" alt="{{ $post->kategori->name }}">
                     
 
-                <article class="my-3fs-5">
+                <article class="my-3 fs-5">
                     {!! $post->body !!}         {{--  Blasde excape charakter == untuk menampilkan data yang memeiliki tag HTML  --}}
                 </article>
 
-                    <a href="/blog" class="text-decoration-none d-block mt-4"> <- Back to Posts</a>
+                    <a href="/posts" class="text-decoration-none d-block mt-4"> <- Back to Posts</a>
             </div>
         </div>
     </div>

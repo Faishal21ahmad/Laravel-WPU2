@@ -13,7 +13,7 @@
                 <a class="nav-link {{ ($active === "About") ? 'active' : '' }}" href="/about">About</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link {{ ($active === "Blog") ? 'active' : '' }}" href="/blog">Blog</a>
+                <a class="nav-link {{ ($active === "Posts") ? 'active' : '' }}" href="/posts">Blog</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link {{ ($active === "kategoris") ? 'active' : '' }}" href="/kategoris">Kategori</a>
@@ -22,6 +22,13 @@
                 <a class="nav-link" href="https://github.com/Faishal21ahmad" target="_blank" >Github</a>
             </li>
         </ul>
+
+        <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+                <a href="/login" class="nav-link {{ ($active === "login") ? 'active' : '' }} "><i class="bi bi-box-arrow-in-right"></i>  Login</a>
+            </li>
+        </ul>
+
         </div>
     </div>
 </nav>

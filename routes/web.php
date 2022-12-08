@@ -1,10 +1,11 @@
 <?php
 
-use App\Http\Controllers\PostController;
-use App\Models\Post;
-use App\Models\User;
-use Illuminate\Support\Facades\Route;
 use App\Models\Kategori;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PostController;
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\RegisterController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -34,8 +35,8 @@ Route::get('/about', function () {
     ]);
 });
 
-Route::get('/blog', [PostController::class, 'index']);
-Route::get('posts/{post:slug}', [PostController::class, 'show']);
+Route::get('/posts', [PostController::class, 'index']);
+Route::get('/posts/{post:slug}', [PostController::class, 'show']);
 
 Route::get('/kategoris', function () {
     return view('kategoris', [
@@ -53,9 +54,14 @@ Route::get('/kategoris/{kategori:slug}', function (Kategori $kategori) {
     ]);                             /// Lazy Eager Loading /////
 });
 
-Route::get('/authors/{author:username}', function (User $author) {
-    return view('posts', [
-        'title' => "Post By Author : $author->name",
-        'posts' => $author->posts->load('kategori', 'author')
-    ]);                           /// Lazy Eager Loading /////
-});
+// Route::get('/authors/{author:username}', function (User $author) {
+//     return view('posts', [
+//         'title' => "Post By Author : $author->name",
+//         'active' => 'posts',
+//         'posts' => $author->posts->load('kategori', 'author')
+//     ]);                           /// Lazy Eager Loading /////
+// });
+
+
+Route::get('/login', [LoginController::class, 'index']);
+Route::get('/register', [RegisterController::class, 'index']);
