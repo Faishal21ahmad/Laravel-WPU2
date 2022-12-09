@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Str;
 use App\Models\User;
 use App\Models\Kategori;
 use App\Models\Post;
@@ -36,11 +37,14 @@ class DatabaseSeeder extends Seeder
 
         Post::factory(20)->create();
 
-        // User::create([
-        //     'name' => 'Faishalbahy Ahmad Fathuni',
-        //     'email' => 'faishal@gmail.com',
-        //     'password' => bcrypt('12345')
-        // ]);
+        User::create([
+            'name' => 'Faishal Ahmad Fathuni',
+            'username' => 'Ishal',
+            'email' => 'faishal@gmail.com',
+            'email_verified_at' => now(),
+            'password' => bcrypt('12345'),
+            'remember_token' => Str::random(10)
+        ]);
 
         // User::create([
         //     'name' => 'Ahmad Ishal',
