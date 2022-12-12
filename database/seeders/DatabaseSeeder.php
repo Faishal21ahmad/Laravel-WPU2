@@ -17,6 +17,15 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        User::create([
+            'name' => 'Faishal Ahmad Fathuni',
+            'username' => 'Ishal',
+            'email' => 'faishal@gmail.com',
+            'email_verified_at' => now(),
+            'password' => bcrypt('12345'),
+            'remember_token' => Str::random(10)
+        ]);
+
         User::factory(3)->create();
 
         Kategori::create([
@@ -37,14 +46,7 @@ class DatabaseSeeder extends Seeder
 
         Post::factory(20)->create();
 
-        User::create([
-            'name' => 'Faishal Ahmad Fathuni',
-            'username' => 'Ishal',
-            'email' => 'faishal@gmail.com',
-            'email_verified_at' => now(),
-            'password' => bcrypt('12345'),
-            'remember_token' => Str::random(10)
-        ]);
+
 
         // User::create([
         //     'name' => 'Ahmad Ishal',

@@ -6,9 +6,13 @@
             <div class="col-md-8">
                 <h1 class="mb-5">{{ $post->title }}</h1>
                     <p>By. <a href="/posts?author={{ $post->author->username }}" class="text-decoration-none" >{{ $post->author->name }}</a> in <a href="/posts?kategori={{ $post->kategori->slug }}" class="text-decoration-none">{{ $post->kategori->name }}</a></p>
-
-                    <img src="https://source.unsplash.com/1200x400?{{ $post->kategori->name }}" class="img-fluid" alt="{{ $post->kategori->name }}">
-                    
+                    @if ($post->image)
+                    <div style="max-height: 350px; overflow:hidden">
+                        <img src="{{ asset('storage/'. $post->image) }}" class="img-fluid" alt="{{ $post->kategori->name }}">
+                    </div>
+                    @else
+                        <img src="https://source.unsplash.com/1200x400?{{ $post->kategori->name }}" class="img-fluid" alt="{{ $post->kategori->name }}">
+                    @endif
 
                 <article class="my-3 fs-5">
                     {!! $post->body !!}         {{--  Blasde excape charakter == untuk menampilkan data yang memeiliki tag HTML  --}}

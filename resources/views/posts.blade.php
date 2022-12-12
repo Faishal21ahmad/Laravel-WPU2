@@ -21,7 +21,14 @@
 
 @if ($posts->count())
     <div class="card mb-3">
-        <img src="https://source.unsplash.com/1200x400?{{ $posts[0]->kategori->name }}" class="card-img-top" alt="kategori">
+        @if ($posts[0]->image)
+            <div style="max-height: 350px; overflow:hidden">
+                <img src="{{ asset('storage/'. $posts[0]->image) }}" class="img-fluid" alt="{{ $posts[0]->kategori->name }}">
+            </div>
+        @else
+            <img src="https://source.unsplash.com/1200x400?{{ $posts[0]->kategori->name }}" class="card-img-top" alt="{{ $posts[0]->kategori->name }}">
+        @endif
+        
         <div class="card-body text-center">
             <a href="/posts/{{ $posts[0]->slug }}" class="text-decoration-none text-dark">
                 <h3 class="card-title">{{ $posts[0]->title }}</h3>
@@ -43,10 +50,16 @@
         <div class="row">
             @foreach ($posts->skip(1) as $post)
                 <div class="col-md-4 mb-3">
-
                     <div class="card">
                         <div class="position-absolute bg-dark px-3 py-2 text-white"> <a href="/posts?kategori={{ $post->kategori->slug }}" class="text-white text-decoration-none">{{ $post->kategori->name }}</a></div>
-                        <img src="https://source.unsplash.com/500x400?{{ $post->kategori->name }}" class="card-img-top" alt="kategori">
+                        @if ($post->image)
+                                <img src="{{ asset('storage/'. $post->image) }}" class="img-fluid" alt="{{ $post->kategori->name }}">
+                        @else
+                            <img src="https://source.unsplash.com/500x400?{{ $post->kategori->name }}" class="card-img-top" alt="{{ $post->kategori->name }}">
+                        @endif
+                        
+                        
+                        
                         <div class="card-body">
                             <h5 class="card-title">{{ $post->title }}</h5>
                             <p>
