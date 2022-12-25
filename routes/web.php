@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminKategoriController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DashboardPostController;
 use App\Models\Kategori;
@@ -62,7 +63,7 @@ Route::get('/kategoris/{kategori:slug}', function (Kategori $kategori) {
 //         'title' => "Post By Author : $author->name",
 //         'active' => 'posts',
 //         'posts' => $author->posts->load('kategori', 'author')
-//     ]);                           /// Lazy Eager Loading /////
+//     ]);     ->middleware('admin')                      /// Lazy Eager Loading /////
 // });
 
 
@@ -75,7 +76,9 @@ Route::post('/register', [RegisterController::class, 'store']);
 
 Route::get('/dashboard', function () {
     return view('dashboard.index');
-})->middleware('auth');
+})->middleware('auth'); 
 
 Route::get('/dashboard/posts/checkSlug', [DashboardPostController::class, 'checkSlug'])->middleware('auth');
 Route::resource('/dashboard/posts', DashboardPostController::class)->middleware('auth');
+
+Route::resource('/dashboard/kategoris', AdminKategoriController::class)->except('show')->middleware('admin');
